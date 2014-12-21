@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles/app.css">
     <link rel="stylesheet" href="styles/modules/toolbar.css">
     <link rel="stylesheet" href="styles/modules/slider.css">
+    <link rel="stylesheet" href="styles/modules/menu.css">
 </head>
 <body>
 
@@ -43,7 +44,40 @@
     </div>
 
     <div id="menu">
-
+        <div id="menu-shadow"></div>
+        <div id="menu-element">
+            <div class="sections">
+                <a>
+                    <i class="home"></i>
+                    <span>Home</span>
+                </a>
+                <a>
+                    <i class="weather"></i>
+                    <span>Weather</span>
+                </a>
+                <a>
+                    <i class="holidays"></i>
+                    <span>Holidays</span>
+                </a>
+                <a>
+                    <i class="births"></i>
+                    <span>Births</span>
+                </a>
+                <a class="current">
+                    <i class="events"></i>
+                    <span>Events</span>
+                </a>
+                <a>
+                    <i class="personal"></i>
+                    <span>Personal</span>
+                </a>
+            </div>
+            <div class="languages">
+                <a>en</a>
+                <a>ru</a>
+                <a>ua</a>
+            </div>
+        </div>
     </div>
 
 
@@ -51,6 +85,15 @@
     <div id="content">
 
     </div>
+
+
+    <script src="scripts/app.js"></script>
+    <script src="scripts/libs/sandbox.js"></script>
+    <script src="scripts/modules/toolbar.js"></script>
+    <script src="scripts/modules/menu.js"></script>
+    <script>
+        app.start();
+    </script>
 
 </body>
 </html>

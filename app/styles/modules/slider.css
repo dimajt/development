@@ -6,6 +6,7 @@
     font-family: Light;
     border-bottom: 2px solid #F44336;
     overflow: hidden;
+    z-index: 1;
 }
 #slider-container {
     position: absolute;

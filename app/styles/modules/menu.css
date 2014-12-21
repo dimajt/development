@@ -1,0 +1,84 @@
+#menu {
+    position: absolute;
+    top: 41px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 2;
+    font-family: Thin;
+    color: #FFF;
+    /*display: none;*/
+}
+#menu-element {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 220px;
+    background: #E53935;
+    z-index: 2;
+
+}
+#menu-shadow {
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+#menu .sections {
+    margin: 0 0 0 0;
+}
+#menu .sections a {
+    display: block;
+    font-size: 12px;
+    color: #FFF;
+    /*outline: 1px solid #000;*/
+
+    line-height: 42px;
+}
+#menu .sections a.current {
+    background: #D32F2F;
+}
+#menu .sections i {
+    display: block;
+    float: left;
+    height: 42px;
+    width: 42px;
+    background-size: 16px 16px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.8;
+}
+#menu .sections i.home {
+    background-image: url("../../images/icons/home.png");
+}
+#menu .sections i.weather {
+    background-image: url("../../images/icons/weather.png");
+}
+#menu .sections i.holidays {
+    background-image: url("../../images/icons/holidays.png");
+}
+#menu .sections i.births {
+    background-image: url("../../images/icons/births.png");
+}
+#menu .sections i.events {
+    background-image: url("../../images/icons/events.png");
+}
+#menu .sections i.personal {
+    background-image: url("../../images/icons/personal.png");
+}
+#menu .languages {
+    position: absolute;
+    bottom: 0;
+}
+#menu .languages a {
+    display: block;
+    float: left;
+    font-size: 16px;
+    height: 42px;
+    line-height: 42px;
+    width: 42px;
+    text-align: center;
+}

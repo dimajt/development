@@ -29,4 +29,5 @@ body, html {
 body {
     margin: 0;
     line-height: 100%;
+    position: relative;
 }

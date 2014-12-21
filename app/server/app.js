@@ -6,7 +6,7 @@
 var http = require('http');
 var fs = require('fs');
 var url = require('url');
-var port = 8000;
+var port = 5000;
 
 // mime types
 var mime = {  
