@@ -7,7 +7,19 @@
     z-index: 2;
     font-family: Thin;
     color: #FFF;
-    /*display: none;*/
+    display: none;
+}
+#menu h1 {
+    margin: 20px 0 0 10px;
+    font-size: 14px;
+}
+#menu h2 {
+    margin: 4px 0 6px 10px;
+    font-size: 24px;
+}
+#menu h3 {
+    margin: 0 0 10px 10px;
+    font-size: 10px;
 }
 #menu-element {
     position: absolute;
@@ -37,9 +49,13 @@
     /*outline: 1px solid #000;*/
 
     line-height: 42px;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+
 }
 #menu .sections a.current {
     background: #D32F2F;
+    box-shadow: inset 1px 0 0 0 #FFF;
 }
 #menu .sections i {
     display: block;
@@ -76,9 +92,18 @@
 #menu .languages a {
     display: block;
     float: left;
-    font-size: 16px;
-    height: 42px;
-    line-height: 42px;
-    width: 42px;
+    font-size: 10px;
     text-align: center;
+    color: #FFF;
+    font-family: Black;
+    /*text-transform: uppercase;*/
+    height: 20px;
+    line-height: 20px;
+    padding: 0 10px 0 10px;
+    margin: 0 0 20px 10px;
+    border-radius: 18px;
+}
+#menu .languages a.current {
+    background: #FFF;
+    color: #E53935;
 }
