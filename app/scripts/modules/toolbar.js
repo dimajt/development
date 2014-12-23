@@ -16,6 +16,10 @@ app.define('toolbar', function(sb) {
         console.log('show menu');
     }
 
+    function changes() {
+
+    }
+
     return {
 
         init: function() {
@@ -29,6 +33,7 @@ app.define('toolbar', function(sb) {
             $calendar.addEventListener('click', toggleCalendar, false);
 
             sb.listen('changeSection', changeTitle);
+            sb.listen('menuToggle', changes);
 
         }
 
