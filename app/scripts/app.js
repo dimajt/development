@@ -21,7 +21,6 @@ var app = (function() {
                 events[event] = [];
             }
             events[event].push(callback);
-
         },
 
         fireEvent: function(event, value) {

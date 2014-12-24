@@ -1,40 +1,51 @@
 app.define('toolbar', function(sb) {
 
-    var $menu;
-    var $calendar;
-    var $title;
+    // --------------------
+    // Variables
+    // --------------------
 
-    function changeTitle() {
-        console.log('change title');
+    var $toolbar,
+        $menu,
+        $calendar,
+        $title;
+
+
+
+    // --------------------
+    // Handlers
+    // --------------------
+
+    function setWidth(val) {
+        $toolbar.style.width = val + 'px';
     }
 
-    function menuToggle() {
-        sb.notify('menuToggle');
+    function showMenu() {
+        sb.notify('showMenu');
     }
 
-    function toggleCalendar() {
-        console.log('show menu');
+
+
+    // --------------------
+    // Initialization
+    // --------------------
+
+    function elements() {
+        $toolbar = sb.id('toolbar');
+        $menu = sb.id('toolbar-menu');
+        $calendar = sb.id('toolbar-calendar');
+        $title = sb.id('toolbar-title');
     }
 
-    function changes() {
-
+    function events() {
+        $menu.on('click', showMenu);
+        sb.listen('resize', setWidth);
     }
 
     return {
 
         init: function() {
-
-
-            $menu = document.getElementById('toolbar-menu');
-            $calendar = document.getElementById('toolbar-calendar');
-            $title = document.getElementById('toolbar-title');
-
-            $menu.addEventListener('click', menuToggle, false);
-            $calendar.addEventListener('click', toggleCalendar, false);
-
-            sb.listen('changeSection', changeTitle);
-            sb.listen('menuToggle', changes);
-
+            elements();
+            events();
         }
 
     }

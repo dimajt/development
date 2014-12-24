@@ -1,10 +1,11 @@
 #toolbar {
-    position: relative;
+    position: absolute;
+    top: 0; left: 0;
     height: 42px;
     background: #F44336;
-    font-family: Regular;
-    z-index: 2;
     border-bottom: 1px solid #D32F2F;
+    font-family: Regular, arial, sans-serif;
+    z-index: 1;
 }
 #toolbar a {
     display: block;

@@ -12,58 +12,58 @@
 </head>
 <body>
 
-    <div id="toolbar">
-        <a id="toolbar-menu"></a>
-        <p id="toolbar-title">Events</p>
-        <a id="toolbar-calendar"></a>
-    </div>
+    <div id="tools">
 
+        <div id="toolbar">
+            <a id="toolbar-menu"></a>
+            <p id="toolbar-title">Events</p>
+            <a id="toolbar-calendar"></a>
+        </div>
 
+        <div id="calendar">
+        </div>
 
-    <div id="calendar">
-
-    </div>
-
-    <div id="menu">
-        <div id="menu-shadow"></div>
-        <div id="menu-element">
-            <div class="title">
-                <h1>December 23, 2014</h1>
-                <h2>Wednesday</h2>
-            </div>
-            <div class="items">
-                <a>
-                    <i class="home"></i>
-                    <span>Home</span>
-                </a>
-                <a>
-                    <i class="weather"></i>
-                    <span>Weather</span>
-                </a>
-                <a>
-                    <i class="holidays"></i>
-                    <span>Holidays</span>
-                    <b>8</b>
-                </a>
-                <a class="current">
-                    <i class="events"></i>
-                    <span>Events</span>
-                    <b>14</b>
-                </a>
-                <a>
-                    <i class="births"></i>
-                    <span>Births</span>
-                    <b>21</b>
-                </a>
-                <a>
-                    <i class="horoscope"></i>
-                    <span>Horoscope</span>
-                </a>
-            </div>
-            <div class="languages">
-                <a class="current">en</a>
-                <a>ru</a>
-                <a>ua</a>
+        <div id="menu">
+            <div id="menu-shadow"></div>
+            <div id="menu-element">
+                <div class="title">
+                    <h1 id="menu-date">December 23, 2014</h1>
+                    <h2 id="menu-day">Wednesday</h2>
+                </div>
+                <div id="menu-items">
+                    <a>
+                        <i class="icon-home"></i>
+                        <span>Home</span>
+                    </a>
+                    <a>
+                        <i class="icon-weather"></i>
+                        <span>Weather</span>
+                    </a>
+                    <a>
+                        <i class="icon-holidays"></i>
+                        <span>Holidays</span>
+                        <b>8</b>
+                    </a>
+                    <a class="current">
+                        <i class="icon-events"></i>
+                        <span>Events</span>
+                        <b>14</b>
+                    </a>
+                    <a>
+                        <i class="icon-births"></i>
+                        <span>Births</span>
+                        <b>21</b>
+                    </a>
+                    <a>
+                        <i class="icon-horoscope"></i>
+                        <span>Horoscope</span>
+                    </a>
+                </div>
+                <div id="menu-languages">
+                    <a class="current">en</a>
+                    <a>ru</a>
+                    <a>ua</a>
+                </div>
             </div>
         </div>
     </div>
@@ -112,13 +112,36 @@
         <p>Tibb's Eve (Newfoundland and Labrador)</p>
         <p>Victory Day (Egypt)</p>
         <p>Foundation Day[disambiguation needed] Islami Jamiat Talaba Pakistan 1947</p>
+        <p>Birthday of the Queen Silvia, an official flag day (Sweden)</p>
+        <p>Children's Day (South Sudan)</p>
+        <p>Christian Feast Day:</p>
+        <p>Abassad (Coptic Church)</p>
+        <p>John Cantius</p>
+        <p>Victoria, Anatolia, and Audax (for St. Victoria only)</p>
+        <p>O Emmanuel</p>
+        <p>Psote (Coptic Church)</p>
+        <p>Thorlac Thorhallsson, patron saint of Iceland; The last day of preparations before Christmas.</p>
+        <p>December 23 (Eastern Orthodox liturgics)</p>
+        <p>Festivus, a holiday made popular by the sitcom Seinfeld</p>
+        <p>HumanLight (Secular humanism in United States)</p>
+        <p>Larentalia, in honor of Larenta. (Roman Empire)</p>
+        <p>Night of the Radishes (Oaxaca, Mexico)</p>
+        <p>The Emperor's Birthday, birthday of Akihito, the current Emperor of Japan. (Japan)</p>
+        <p>Tibb's Eve (Newfoundland and Labrador)</p>
+        <p>Victory Day (Egypt)</p>
+        <p>Foundation Day[disambiguation needed] Islami Jamiat Talaba Pakistan 1947</p>
+
     </div>
 
 
+    <script src="scripts/libs/lib.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/libs/sandbox.js"></script>
+
     <script src="scripts/modules/toolbar.js"></script>
     <script src="scripts/modules/menu.js"></script>
+
+    <script src="scripts/modules/init.js"></script>
     <script>
         app.start();
     </script>
