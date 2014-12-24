@@ -31,30 +31,30 @@
                     <h2 id="menu-day">Wednesday</h2>
                 </div>
                 <div id="menu-items">
-                    <a>
+                    <a data-path="home" class="current">
                         <i class="icon-home"></i>
                         <span>Home</span>
                     </a>
-                    <a>
+                    <a data-path="weather">
                         <i class="icon-weather"></i>
                         <span>Weather</span>
                     </a>
-                    <a>
+                    <a data-path="holidays">
                         <i class="icon-holidays"></i>
                         <span>Holidays</span>
                         <b>8</b>
                     </a>
-                    <a class="current">
+                    <a data-path="events">
                         <i class="icon-events"></i>
                         <span>Events</span>
                         <b>14</b>
                     </a>
-                    <a>
+                    <a data-path="births">
                         <i class="icon-births"></i>
                         <span>Births</span>
                         <b>21</b>
                     </a>
-                    <a>
+                    <a data-path="horoscope">
                         <i class="icon-horoscope"></i>
                         <span>Horoscope</span>
                     </a>
@@ -70,7 +70,7 @@
 
 
 
-    <div id="content">
+    <div id="page">
 
         <div id="slider">
             <div id="slider-container">
@@ -94,42 +94,7 @@
             <a id="slider-next"></a>
         </div>
 
-        <p>Birthday of the Queen Silvia, an official flag day (Sweden)</p>
-        <p>Children's Day (South Sudan)</p>
-        <p>Christian Feast Day:</p>
-        <p>Abassad (Coptic Church)</p>
-        <p>John Cantius</p>
-        <p>Victoria, Anatolia, and Audax (for St. Victoria only)</p>
-        <p>O Emmanuel</p>
-        <p>Psote (Coptic Church)</p>
-        <p>Thorlac Thorhallsson, patron saint of Iceland; The last day of preparations before Christmas.</p>
-        <p>December 23 (Eastern Orthodox liturgics)</p>
-        <p>Festivus, a holiday made popular by the sitcom Seinfeld</p>
-        <p>HumanLight (Secular humanism in United States)</p>
-        <p>Larentalia, in honor of Larenta. (Roman Empire)</p>
-        <p>Night of the Radishes (Oaxaca, Mexico)</p>
-        <p>The Emperor's Birthday, birthday of Akihito, the current Emperor of Japan. (Japan)</p>
-        <p>Tibb's Eve (Newfoundland and Labrador)</p>
-        <p>Victory Day (Egypt)</p>
-        <p>Foundation Day[disambiguation needed] Islami Jamiat Talaba Pakistan 1947</p>
-        <p>Birthday of the Queen Silvia, an official flag day (Sweden)</p>
-        <p>Children's Day (South Sudan)</p>
-        <p>Christian Feast Day:</p>
-        <p>Abassad (Coptic Church)</p>
-        <p>John Cantius</p>
-        <p>Victoria, Anatolia, and Audax (for St. Victoria only)</p>
-        <p>O Emmanuel</p>
-        <p>Psote (Coptic Church)</p>
-        <p>Thorlac Thorhallsson, patron saint of Iceland; The last day of preparations before Christmas.</p>
-        <p>December 23 (Eastern Orthodox liturgics)</p>
-        <p>Festivus, a holiday made popular by the sitcom Seinfeld</p>
-        <p>HumanLight (Secular humanism in United States)</p>
-        <p>Larentalia, in honor of Larenta. (Roman Empire)</p>
-        <p>Night of the Radishes (Oaxaca, Mexico)</p>
-        <p>The Emperor's Birthday, birthday of Akihito, the current Emperor of Japan. (Japan)</p>
-        <p>Tibb's Eve (Newfoundland and Labrador)</p>
-        <p>Victory Day (Egypt)</p>
-        <p>Foundation Day[disambiguation needed] Islami Jamiat Talaba Pakistan 1947</p>
+        <div id="content"></div>
 
     </div>
 
@@ -140,6 +105,7 @@
 
     <script src="scripts/modules/toolbar.js"></script>
     <script src="scripts/modules/menu.js"></script>
+    <script src="scripts/modules/content.js"></script>
 
     <script src="scripts/modules/init.js"></script>
     <script>

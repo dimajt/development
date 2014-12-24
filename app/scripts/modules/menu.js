@@ -10,7 +10,14 @@ app.define('menu', function(sb) {
         $items,
         $languages,
         $date,
-        $day;
+        $day,
+        $current;
+
+    var path = 'home';
+    var animation = false;
+    var redirect = false;
+
+
 
 
 
@@ -18,16 +25,40 @@ app.define('menu', function(sb) {
     // Handlers
     // --------------------
 
+    function animationEnd() {
+        animation = false;
+        if (redirect) {
+            redirect = false;
+            sb.notify('locationChange', {path: path});
+        }
+    }
+
     function changeLocation() {
-        console.log('!');
+        if (!animation) {
+            var pathAttr = this.getAttribute('data-path');
+            if (pathAttr !== path) {
+                path = pathAttr;
+                $current.className = '';
+                $current = this;
+                $current.className = 'current';
+                redirect = true;
+            }
+        }
+        hideMenu();
     }
 
     function showMenu() {
-        $main.className = 'opened';
+        if (!animation) {
+            animation = true;
+            $main.className = 'opened';
+        }
     }
 
     function hideMenu() {
-        $main.className = '';
+        if (!animation) {
+            animation = true;
+            $main.className = '';
+        }
     }
 
     function setWidth(val) {
@@ -48,11 +79,14 @@ app.define('menu', function(sb) {
         $languages = sb.id('menu-languages').children;
         $date = sb.id('menu-date');
         $day = sb.id('menu-day');
+        $current = $items[0];
     }
 
     function events() {
         $shadow.on('click', hideMenu);
         $items.on('click', changeLocation);
+        $menu.on('transitionend', animationEnd);
+        $menu.on('webkitTransitionEnd', animationEnd);
         sb.listen('showMenu', showMenu);
         sb.listen('resize', setWidth);
     }

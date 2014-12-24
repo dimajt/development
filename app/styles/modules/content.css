@@ -1,0 +1,7 @@
+#content {
+    opacity: 1;
+    -webkit-transition: opacity 0.3s ease;
+}
+#content.hide {
+    opacity: 0;
+}
