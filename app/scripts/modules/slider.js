@@ -1,6 +1,5 @@
 app.define('slider', function(sb) {
 
-    console.log('!');
 
     function elements() {
 

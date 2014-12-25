@@ -6,10 +6,9 @@ app.define('content', function(sb) {
 
     var $content;
 
-    var date;
-    var path;
+    var date = sb.getDate();
+    var section = 'home';
     var visible = true;
-    var history = [];
 
 
 
@@ -19,17 +18,25 @@ app.define('content', function(sb) {
 
     function animationEnd() {
         if (!visible) {
-            $content.innerHTML = path + '<br>' + date;
+            $content.innerHTML = section + '<br>' + date;
             $content.className = '';
             visible = true;
         }
     }
 
-    function locationChange(event) {
-        path = event.path || path;
-        date = event.date || date;
+    function changeLocation() {
         visible = false;
         $content.className = 'hide';
+    }
+
+    function changeSection(value) {
+        section = value;
+        changeLocation();
+    }
+
+    function changeDate(value) {
+        date = value;
+        changeLocation();
     }
 
 
@@ -45,7 +52,8 @@ app.define('content', function(sb) {
     function events() {
         $content.on('transitionend', animationEnd);
         $content.on('webkitTransitionEnd', animationEnd);
-        sb.listen('locationChange', locationChange);
+        sb.listen('changeSection', changeSection);
+        sb.listen('changeDate', changeDate);
     }
 
     return {
@@ -53,6 +61,7 @@ app.define('content', function(sb) {
         init: function() {
             elements();
             events();
+            changeLocation();
         }
 
     }

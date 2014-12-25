@@ -9,18 +9,25 @@ app.define('toolbar', function(sb) {
         $calendar,
         $title;
 
+    var section = sb.getSection();
+
+
 
 
     // --------------------
     // Handlers
     // --------------------
 
-    function setWidth(val) {
-        $toolbar.style.width = val + 'px';
+    function setWidth() {
+        $toolbar.style.width = window.innerWidth + 'px';
     }
 
     function showMenu() {
         sb.notify('showMenu');
+    }
+
+    function writeTitle(value) {
+        $title.innerHTML = sb.getKey(value);
     }
 
 
@@ -38,7 +45,8 @@ app.define('toolbar', function(sb) {
 
     function events() {
         $menu.on('click', showMenu);
-        sb.listen('resize', setWidth);
+        window.on('resize', setWidth);
+        sb.listen('changeSection', writeTitle);
     }
 
     return {
@@ -46,6 +54,8 @@ app.define('toolbar', function(sb) {
         init: function() {
             elements();
             events();
+            setWidth();
+            writeTitle(section);
         }
 
     }

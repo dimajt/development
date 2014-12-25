@@ -8,15 +8,23 @@ app.define('menu', function(sb) {
         $menu,
         $shadow,
         $items,
+        $keys,
         $languages,
         $date,
         $day,
         $current;
 
-    var path = 'home';
+    var sections = [
+        'home',
+        'weather',
+        'holidays',
+        'events',
+        'births',
+        'horoscope'
+    ];
     var animation = false;
     var redirect = false;
-
+    var section = sb.getSection();
 
 
 
@@ -29,15 +37,15 @@ app.define('menu', function(sb) {
         animation = false;
         if (redirect) {
             redirect = false;
-            sb.notify('locationChange', {path: path});
+            sb.notify('changeSection', section);
         }
     }
 
     function changeLocation() {
         if (!animation) {
-            var pathAttr = this.getAttribute('data-path');
-            if (pathAttr !== path) {
-                path = pathAttr;
+            var path = this.getAttribute('data-path');
+            if (path !== section) {
+                section = path;
                 $current.className = '';
                 $current = this;
                 $current.className = 'current';
@@ -61,8 +69,8 @@ app.define('menu', function(sb) {
         }
     }
 
-    function setWidth(val) {
-        $shadow.style.width = val + 'px';
+    function setWidth() {
+        $shadow.style.width = window.innerWidth + 'px';
     }
 
 
@@ -70,6 +78,16 @@ app.define('menu', function(sb) {
     // --------------------
     // Initialization
     // --------------------
+
+    function setSections() {
+        for (var i = 0; i < $items.length; i++) {
+            $items[i].querySelector('span').innerHTML = sb.getKey(sections[i]);
+        }
+    }
+
+    function setCurrent() {
+        $current.className = 'current';
+    }
 
     function elements() {
         $main = sb.id('menu');
@@ -79,7 +97,7 @@ app.define('menu', function(sb) {
         $languages = sb.id('menu-languages').children;
         $date = sb.id('menu-date');
         $day = sb.id('menu-day');
-        $current = $items[0];
+        $current = $items[sections.indexOf(section)];
     }
 
     function events() {
@@ -87,8 +105,9 @@ app.define('menu', function(sb) {
         $items.on('click', changeLocation);
         $menu.on('transitionend', animationEnd);
         $menu.on('webkitTransitionEnd', animationEnd);
+        window.on('resize', setWidth);
         sb.listen('showMenu', showMenu);
-        sb.listen('resize', setWidth);
+
     }
 
     return {
@@ -96,6 +115,9 @@ app.define('menu', function(sb) {
         init: function() {
             elements();
             events();
+            setWidth();
+            setCurrent();
+            setSections();
         }
 
     }
