@@ -30,9 +30,6 @@ var app = (function() {
                 }
             }
         }
-
-
-
     }
 
 })();

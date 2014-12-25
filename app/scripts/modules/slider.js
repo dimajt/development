@@ -1,18 +1,12 @@
 app.define('slider', function(sb) {
 
-    var date;
-
-
-    function setDate(value) {
-        date = value;
-    }
+    console.log('!');
 
     function elements() {
 
     }
 
     function events() {
-        sb.listen('set-date', setDate);
     }
 
     return {
