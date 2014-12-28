@@ -30,6 +30,7 @@ body {
     margin: 0;
     line-height: 100%;
     position: relative;
+    -webkit-user-select: none;
 }
 #tools {
     position: fixed;

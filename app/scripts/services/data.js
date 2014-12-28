@@ -1,6 +1,6 @@
 app.data = function() {
 
-    var language = 'ua';
+    var language = 'en';
     var dateObject = new Date();
     var date = dateObject.reformat();
     var section = 'births';
