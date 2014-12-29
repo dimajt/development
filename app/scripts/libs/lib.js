@@ -18,15 +18,17 @@ Date.prototype.reformat = function() {
 };
 
 
-Element.prototype.swipe = function(handlers) {
+Element.prototype.swipe = function(options) {
 
-    var radius = 10;
-    var drag = false;
-    var swipe = false;
+    var R1 = 10; // radius for detect swipe
+    var R2 = 50; // radius for cancel swipe
 
-    var start = {};
-    var pass = {};
-    var last = {};
+    var drag = false; // cancel move event without start
+    var swipe = false; // swipe indicator
+
+    var start; // start coordinates
+    var last; // last event positions
+    var passX, passY; // passed distances
 
     var mouseEvents = {
         start: 'mousedown',
@@ -37,16 +39,20 @@ Element.prototype.swipe = function(handlers) {
     var touchEvents = {
         start: 'touchstart',
         move: 'touchmove',
-        end: 'touchend',
-        cancel: 'touchcancel'
+        end: 'touchend'
     };
 
-    var touch = 'ontouchstart' in window;
-    var events = touch ? touchEvents : mouseEvents;
+    var touch = 'ontouchstart' in window; // detect touch device
+    var events = touch ? touchEvents : mouseEvents; // set swipe events
+
+    // create object with handlers
+    var handlers = {};
+    for (var key in events) {
+        handlers[key] = options[key] || function() {};
+    }
 
     function coordinates(e) {
-        var touches = e.touches && e.touches.length ? e.touches : [e];
-        var event = e.changedTouches && e.changedTouches[0] || e.originalEvent && e.originalEvent.changedTouches && e.originalEvent.changedTouches[0] || touches[0].originalEvent || touches[0];
+        var event = touch ? e.targetTouches[0] || e.changedTouches[0] : e;
         return {
             x: event.clientX,
             y: event.clientY
@@ -56,48 +62,59 @@ Element.prototype.swipe = function(handlers) {
     function swipeStart(event) {
         start = coordinates(event);
         last = start;
+        passX = 0;
+        passY = 0;
         drag = true;
-        pass.x = 0;
-        pass.y = 0;
     }
 
+
     function swipeMove(event) {
+
         if (!drag) return;
 
         var position = coordinates(event);
-        pass.x += Math.abs(position.x - last.x);
-        pass.y += Math.abs(position.y - last.y);
+        passX += Math.abs(position.x - last.x);
+        passY += Math.abs(position.y - last.y);
         last = position;
 
-        if (pass.x < radius && pass.y < radius) {
-            return;
-        }
-
-        if (pass.x > pass.y) {
-
-            event.preventDefault();
-
-            if (!swipe) {
+        if (!swipe) {
+            if (passX < R1 && passY < R1) {
+                return;
+            }
+            if (passX > passY) {
+                event.preventDefault();
                 handlers.start(position);
                 swipe = true;
+                passX = 0;
+                passY = 0;
+            }
+            else {
+                swipeCancel();
+            }
+        }
+
+        else {
+            event.preventDefault();
+            handlers.move(position);
+
+            if (passX < R2 && passY < R2) {
                 return;
             }
 
-            handlers.move(position);
+            if (passX > passY) {
+                passX = 0;
+                passY = 0;
+            }
+            else {
+                swipeCancel();
+            }
 
-        }
-        else {
-            drag = false;
-            swipe = false;
-            handlers.end();
         }
     }
 
     function swipeEnd() {
-        if (!swipe) return; // ???
-        drag = false;
-        swipe = false;
-        handlers.end();
+        if (!swipe) return;
+        swipeCancel();
     }
 
     function swipeCancel() {
@@ -106,11 +123,11 @@ Element.prototype.swipe = function(handlers) {
         handlers.end();
     }
 
-    this.addEventListener(events.start, swipeStart);
-    this.addEventListener(events.move, swipeMove);
-    this.addEventListener(events.end, swipeEnd);
-    if (events.cancel) {
-        this.addEventListener(events.cancel, swipeCancel);
+    this.addEventListener(events.start, swipeStart, false);
+    this.addEventListener(events.move, swipeMove, false);
+    this.addEventListener(events.end, swipeEnd, false);
+    if (touch) {
+        this.addEventListener('touchcancel', swipeEnd, false);
     }
 
 };
