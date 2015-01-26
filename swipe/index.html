@@ -25,49 +25,49 @@
 
         var Swipe = (function() {
 
-            // msPointer
-            // touch
-            // mouse
+            var device = 'ontouchstart' in window && 'touch' || window.navigator.msPointerEnabled && 'msPointer' || 'mouse';
+            var events = getEvents();
+            var handlers = {};
 
-//            var events = {
-//                start: 'touchstart',
-//                move: 'touchmove',
-//                end: 'touchend',
-//                touch: true
-//            };
+            function getEvents() {
+                switch(device) {
+                    case 'touch':
+                        return {
+                            start: 'touchstart',
+                            move: 'touchmove',
+                            end: 'touchend'
+                        };
+                    case 'msPointer':
+                        return {
+                            start: 'MSPointerDown',
+                            move: 'MSPointerMove',
+                            end: 'MSPointerUp'
+                        };
+                    default:
+                        return {
+                            start: 'mousedown',
+                            move: 'mousemove',
+                            end: 'mouseup'
+                        }
+                }
+            }
 
-            var touchEvents = {
-                start: 'touchstart',
-                move: 'touchmove',
-                end: 'touchend'
-            };
-
-            var mouseEvents = {
-                start: 'mousedown',
-                move: 'mousemove',
-                end: 'mouseup'
-            };
-
-            var msPointerEvents = {
-                start: 'MSPointerDown',
-                move: 'MSPointerMove',
-                end: 'MSPointerUp'
-            };
-
-            var events = 'ontouchstart' in window && touchEvents || window.navigator.msPointerEnabled && msPointerEvents || mouseEvents;
 
 
             function swipeStart() {
-
+                console.log('start');
             }
 
             function swipeMove() {
-
+                console.log('move');
             }
 
             function swipeEnd() {
-
+                console.log('end');
             }
+
+            console.log(device);
+            console.log(events);
 
 
 
@@ -76,14 +76,14 @@
                 bind: function(element, options) {
 
                     for (var event in events) {
-                        options[event] = options[event] || function() {};
+                        handlers[event] = options[event] || function() {};
                     }
 
                     element.addEventListener(events.start, swipeStart, false);
                     element.addEventListener(events.move, swipeMove, false);
                     element.addEventListener(events.end, swipeEnd, false);
 
-                    if (events.touch) {
+                    if (device === 'touch') {
                         element.addEventListener('touchcancel', swipeEnd, false);
                     }
 
