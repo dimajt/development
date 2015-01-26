@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>swipe</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        #swipe {
+            height: 200px;
+            background: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="swipe"></div>
+
+    <script>
+
+        var element = document.getElementById('swipe');
+
+
+
+        var Swipe = (function() {
+
+            // msPointer
+            // touch
+            // mouse
+
+//            var events = {
+//                start: 'touchstart',
+//                move: 'touchmove',
+//                end: 'touchend',
+//                touch: true
+//            };
+
+            var touchEvents = {
+                start: 'touchstart',
+                move: 'touchmove',
+                end: 'touchend'
+            };
+
+            var mouseEvents = {
+                start: 'mousedown',
+                move: 'mousemove',
+                end: 'mouseup'
+            };
+
+            var msPointerEvents = {
+                start: 'MSPointerDown',
+                move: 'MSPointerMove',
+                end: 'MSPointerUp'
+            };
+
+            var events = 'ontouchstart' in window && touchEvents || window.navigator.msPointerEnabled && msPointerEvents || mouseEvents;
+
+
+            function swipeStart() {
+
+            }
+
+            function swipeMove() {
+
+            }
+
+            function swipeEnd() {
+
+            }
+
+
+
+            return {
+
+                bind: function(element, options) {
+
+                    for (var event in events) {
+                        options[event] = options[event] || function() {};
+                    }
+
+                    element.addEventListener(events.start, swipeStart, false);
+                    element.addEventListener(events.move, swipeMove, false);
+                    element.addEventListener(events.end, swipeEnd, false);
+
+                    if (events.touch) {
+                        element.addEventListener('touchcancel', swipeEnd, false);
+                    }
+
+                }
+            }
+
+        })();
+
+
+        Swipe.bind(element, {
+            start: function() {
+
+            },
+            move: function() {
+
+            },
+            end: function() {
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>
