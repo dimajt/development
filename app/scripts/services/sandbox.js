@@ -14,16 +14,32 @@ app.sandbox = function(core) {
             return document.getElementById(id);
         },
 
-        getKey: function(key) {
-            return core.data.getKey(key);
+        className: function(value, node) {
+            return node.getElementsByClassName(value);
         },
 
-        getDate: function() {
-            return core.data.getDate();
+        tagName: function(value, node) {
+            return node.getElementsByTagName(value);
+        },
+
+        getKey: function() {
+            return core.data.getKey.apply(null, arguments);
+        },
+
+        getDateString: function() {
+            return core.data.getDateString();
+        },
+
+        getDateObject: function() {
+            return core.data.getDateObject();
         },
 
         getSection: function() {
             return core.data.getSection();
+        },
+
+        getLanguage: function() {
+            return core.data.getLanguage();
         }
 
     }

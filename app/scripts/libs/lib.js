@@ -25,6 +25,7 @@ Element.prototype.swipe = function(options) {
 
     var drag = false; // cancel move event without start
     var swipe = false; // swipe indicator
+    var disabled = false;
 
     var start; // start coordinates
     var last; // last event positions
@@ -60,6 +61,9 @@ Element.prototype.swipe = function(options) {
     }
 
     function swipeStart(event) {
+
+        if (disabled) return;
+
         start = coordinates(event);
         last = start;
         passX = 0;
@@ -130,5 +134,15 @@ Element.prototype.swipe = function(options) {
         this.addEventListener('touchcancel', swipeEnd, false);
     }
 
+    this.disable = function() {
+        disabled = true;
+    };
+
+    this.enable = function() {
+        disabled = false;
+    };
+
 };
+
+
 

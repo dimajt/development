@@ -1,48 +1,63 @@
 #slider {
     position: relative;
-    height: 126px;
+    height: 140px;
     background: #000;
     color: #FFF;
-    font-family: Light;
+    font-family: Regular;
     border-bottom: 2px solid #F44336;
     overflow: hidden;
     z-index: 1;
 }
 #slider-container {
     position: absolute;
-    left: -100%; top: 0;
+    left: -100; top: 0;
     width: 300%; height: 100%;
     z-index: 1;
+    -webkit-transition: -webkit-transform 0.5s ease;
 }
-#slider-container .slide {
-    display: block;
+#slider-container.swipe {
+    -webkit-transition: none;
+}
+#slider .slide {
     float: left;
     width: 33.3%;
     height: 100%;
+    font-size: 0;
     text-align: center;
     background-size: cover;
     background-position: center center;
-    background-image: url("../../images/days/monday.png");
+}
+#slider .slide:before {
+    content: '';
+    height: 100%;
+    display: inline-block;
+    vertical-align: middle;
+}
+#slider .slide div {
+    display: inline-block;
+    vertical-align: middle;
 }
 #slider h1 {
     font-weight: normal;
-    margin: 28px 0 0 0;
-    font-size: 14px;
+    margin: 0 0 0 0;
+    font-size: 18px;
 }
 #slider h2 {
     font-weight: normal;
-    margin: 8px 0 10px 0;
-    font-size: 30px;
+    margin: 8px 0 12px 0;
+    font-size: 36px;
+    font-family: Medium;
 }
 #slider h3 {
     font-weight: normal;
     margin: 0;
-    font-size: 10px;
+    font-size: 11px;
 }
 #slider a {
     display: block;
     position: absolute;
-    top: 42px;
+    top: 50%;
+    margin: -21px 0 0 0;
     height: 42px;
     width: 42px;
     background-size: 20px 20px;
@@ -57,4 +72,25 @@
 #slider-next {
     right: 0;
     background-image: url("../../images/icons/next.png");
+}
+#slider .day0 {
+    background-image: url("../../images/days/sunday.png");
+}
+#slider .day1 {
+    background-image: url("../../images/days/monday.png");
+}
+#slider .day2 {
+    background-image: url("../../images/days/tuesday.png");
+}
+#slider .day3 {
+    background-image: url("../../images/days/wednesday.png");
+}
+#slider .day4 {
+    background-image: url("../../images/days/thursday.png");
+}
+#slider .day5 {
+    background-image: url("../../images/days/friday.png");
+}
+#slider .day6 {
+    background-image: url("../../images/days/saturday.png");
 }

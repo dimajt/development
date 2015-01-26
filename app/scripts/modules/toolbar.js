@@ -52,6 +52,8 @@ app.define('toolbar', function(sb) {
     return {
 
         init: function() {
+
+
             elements();
             events();
             setWidth();

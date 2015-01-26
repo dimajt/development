@@ -6,7 +6,7 @@ app.define('content', function(sb) {
 
     var $content;
 
-    var date = sb.getDate();
+    var date = sb.getDateString();
     var section = 'home';
     var visible = true;
 
