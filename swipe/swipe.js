@@ -8,20 +8,14 @@
 
     'use strict';
 
-    // !!!
-    // transfer all private vars to prototype
-    // performance is same?
-
-    var RADIUS = 10;
-
-    var pointerEvents = {
+    var POINTER_EVENTS = {
         touch: {
             start: 'touchstart',
             move: 'touchmove',
             end: 'touchend',
             cancel: 'touchcancel'
         },
-        ms: {
+        msPointer: {
             start: 'MSPointerDown',
             move: 'MSPointerMove',
             end: 'MSPointerUp'
@@ -33,8 +27,17 @@
         }
     };
 
-    var device = 'ontouchstart' in window && 'touch' || window.navigator.msPointerEnabled && 'ms' || 'mouse';
-    var events = pointerEvents[device];
+    var RADIUS = 10;
+    var TOUCH = 'ontouchstart' in window;
+    var MS_POINTER = window.navigator.msPointerEnabled;
+    var DEVICE = getDevice();
+    var EVENTS = POINTER_EVENTS[DEVICE];
+
+    function getDevice() {
+        if (TOUCH) return 'touch';
+        if (MS_POINTER) return 'msPinter';
+        return 'mouse';
+    }
 
     function getCoordinates(e) {
         var event = e; // temporary
@@ -97,6 +100,8 @@
         }
 
     };
+
+
 
 
     Swipe.prototype.handleEvent = function(e) {
