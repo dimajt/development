@@ -4,96 +4,123 @@
  * Released under MIT license
  */
 
-(function(window, document, undefined) {
+(function(window, document) {
 
     'use strict';
 
-    // device
-    // events
-    // handlers
+    // !!!
+    // transfer all private vars to prototype
+    // performance is same?
 
-    var device = getDevice();
-    var events = getEvents();
+    var RADIUS = 10;
 
+    var pointerEvents = {
+        touch: {
+            start: 'touchstart',
+            move: 'touchmove',
+            end: 'touchend',
+            cancel: 'touchcancel'
+        },
+        ms: {
+            start: 'MSPointerDown',
+            move: 'MSPointerMove',
+            end: 'MSPointerUp'
+        },
+        mouse: {
+            start: 'mousedown',
+            move: 'mousemove',
+            end: 'mouseup'
+        }
+    };
 
+    var device = 'ontouchstart' in window && 'touch' || window.navigator.msPointerEnabled && 'ms' || 'mouse';
+    var events = pointerEvents[device];
+
+    function getCoordinates(e) {
+        var event = e; // temporary
+        return {
+            x: event.clientX,
+            y: event.clientY
+        };
+    }
 
     function Swipe(element) {
         this.element = typeof element === 'string' ? document.querySelector(element) : element;
-        this.disabled = false;
-        this.handlers = {
-            start: function() {},
-            move: function() {},
-            end: function() {}
-        };
-        this.device = 'ontouchstart' in window && 'touch' || window.navigator.msPointerEnabled && 'msPointer' || 'mouse';
+        this.handlers = {};
     }
 
     Swipe.prototype.bind = function(options) {
-
-
-        for (var event in events) {}
-
-        this.options = options;
-
-        if (this.device === 'touch') {
-            this.element.addEventListener('touchstart', this, false);
-            this.element.addEventListener('touchmove', this, false);
-            this.element.addEventListener('touchend', this, false);
-            this.element.addEventListener('touchcancel', this, false);
+        for (var event in events) {
+            this.handlers[event] = options[event] || function() {};
+            this.element.addEventListener(events[event], this, false);
         }
-        else if (this.device === 'msPointer') {
-            this.element.addEventListener('MSPointerDown', this, false);
-            this.element.addEventListener('MSPointerMove', this, false);
-            this.element.addEventListener('MSPointerUp', this, false);
+    };
+
+    Swipe.prototype.start = function(event) {
+        this.startPosition = getCoordinates(event);
+        this.drag = true;
+    };
+
+    Swipe.prototype.move = function(event) {
+
+        if (!this.drag) return;
+
+        var position = getCoordinates(event);
+        var passX = Math.abs(position.x - this.startPosition.x);
+        var passY = Math.abs(position.y - this.startPosition.y);
+
+
+        if (!this.swipe) {
+            if (passX < RADIUS && passY < RADIUS) {
+                return;
+            }
+            if (passX > passY) {
+                this.swipe = true;
+                this.handlers.start(position);
+            }
+            else {
+                this.end();
+            }
         }
         else {
-            this.element.addEventListener('mousedown', this, false);
-            this.element.addEventListener('mousemove', this, false);
-            this.element.addEventListener('mouseup', this, false);
+            this.handlers.move(position);
         }
-    };
-
-    Swipe.prototype.enable = function() {
-        this.disabled = false;
-    };
-
-    Swipe.prototype.disable = function() {
-        this.disabled = true;
-    };
-
-    Swipe.prototype.start = function() {
-        console.log('start');
-    };
-
-    Swipe.prototype.move = function() {
-        console.log('move');
     };
 
     Swipe.prototype.end = function() {
-        console.log('end');
+
+        this.drag = false;
+
+        if (this.swipe) {
+            this.handlers.end();
+            this.swipe = false;
+        }
+
     };
 
 
-
     Swipe.prototype.handleEvent = function(e) {
+
+        // slow?
+
         switch(e.type) {
 
-            case 'mousedown':
-            case 'touchstart':
-            case 'MSPointerDown':
+            case pointerEvents.touch.start:
+            case pointerEvents.ms.start:
+            case pointerEvents.mouse.start:
                 this.start(e);
                 break;
 
-            case 'mousemove':
-            case 'touchmove':
-            case 'MSPointerMove':
+            case pointerEvents.touch.move:
+            case pointerEvents.ms.move:
+            case pointerEvents.mouse.move:
                 this.move(e);
                 break;
 
-            case 'mouseup':
-            case 'touchend':
-            case 'touchcancel':
-            case 'MSPointerUp':
+            case pointerEvents.touch.end:
+            case pointerEvents.touch.cancel:
+            case pointerEvents.ms.end:
+            case pointerEvents.mouse.end:
                 this.end(e);
                 break;
         }
