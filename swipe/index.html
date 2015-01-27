@@ -3,6 +3,7 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>swipe</title>
+    <script src="swipe.js"></script>
     <style>
         body {
             margin: 0;
@@ -19,81 +20,10 @@
 
     <script>
 
-        var element = document.getElementById('swipe');
 
+        var swipe = new Swipe('#swipe');
 
-
-        var Swipe = (function() {
-
-            var device = 'ontouchstart' in window && 'touch' || window.navigator.msPointerEnabled && 'msPointer' || 'mouse';
-            var events = getEvents();
-            var handlers = {};
-
-            function getEvents() {
-                switch(device) {
-                    case 'touch':
-                        return {
-                            start: 'touchstart',
-                            move: 'touchmove',
-                            end: 'touchend'
-                        };
-                    case 'msPointer':
-                        return {
-                            start: 'MSPointerDown',
-                            move: 'MSPointerMove',
-                            end: 'MSPointerUp'
-                        };
-                    default:
-                        return {
-                            start: 'mousedown',
-                            move: 'mousemove',
-                            end: 'mouseup'
-                        }
-                }
-            }
-
-
-
-            function swipeStart() {
-                console.log('start');
-            }
-
-            function swipeMove() {
-                console.log('move');
-            }
-
-            function swipeEnd() {
-                console.log('end');
-            }
-
-            console.log(device);
-            console.log(events);
-
-
-
-            return {
-
-                bind: function(element, options) {
-
-                    for (var event in events) {
-                        handlers[event] = options[event] || function() {};
-                    }
-
-                    element.addEventListener(events.start, swipeStart, false);
-                    element.addEventListener(events.move, swipeMove, false);
-                    element.addEventListener(events.end, swipeEnd, false);
-
-                    if (device === 'touch') {
-                        element.addEventListener('touchcancel', swipeEnd, false);
-                    }
-
-                }
-            }
-
-        })();
-
-
-        Swipe.bind(element, {
+        swipe.bind({
             start: function() {
 
             },
@@ -105,9 +35,202 @@
             }
         });
 
+        swipe.disable();
+        swipe.enable();
 
 
 
+
+//
+//
+//        var SwipeOne = (function(window, document, undefined) {
+//
+//            var device, events;
+//            var handlers = {};
+//
+//
+//            if ('ontouchstart' in window) {
+//                device = 'touch';
+//                events = {
+//                    start: 'touchstart',
+//                    move: 'touchmove',
+//                    end: 'touchend'
+//                }
+//            }
+//            else if (window.navigator.msPointerEnabled) {
+//                device = 'msPointer';
+//                events = {
+//                    start: 'MSPointerDown',
+//                    move: 'MSPointerMove',
+//                    end: 'MSPointerUp'
+//                }
+//            }
+//            else {
+//                device = 'mouse';
+//                events = {
+//                    start: 'mousedown',
+//                    move: 'mousemove',
+//                    end: 'mouseup'
+//                }
+//            }
+//
+//            function getPosition() {
+//
+//            }
+//
+//
+//            return {
+//
+//                bind: function(element, options) {
+//
+//                    for (var event in events) {
+//                        options[event] = options[event] || function() {};
+//                    }
+//
+//                    function swipeStart() {
+//                        options.start();
+//                    }
+//
+//                    function swipeMove() {
+//                        console.log('move');
+//                    }
+//
+//                    function swipeEnd() {
+//                        console.log('end');
+//                    }
+//
+//                    element.addEventListener(events.start, swipeStart, false);
+//                    element.addEventListener(events.move, swipeMove, false);
+//                    element.addEventListener(events.end, swipeEnd, false);
+//
+//                    if (device === 'touch') {
+//                        element.addEventListener('touchcancel', swipeEnd, false);
+//                    }
+//
+//                }
+//            }
+//
+//        })();
+//
+//
+//
+//        var element = document.getElementById('swipe');
+//
+//
+////        Swipe.bind(element, {
+////            start: function() {
+////                console.log('el');
+////            },
+////            move: function() {
+////
+////            },
+////            end: function() {
+////
+////            }
+////        });
+////
+////        Swipe.disable();
+////
+////
+////        var help = document.getElementById('help');
+////
+////        Swipe.bind(help, {
+////            start: function() {
+////                console.log('hel');
+////            },
+////            move: function() {
+////
+////            },
+////            end: function() {
+////
+////            }
+////        });
+//
+//
+//
+//        (function(window, document, undefined) {
+//
+//            'use strict';
+//
+//            function Swipe(val) {
+//                this.value = val;
+//            }
+//
+//            Swipe.prototype.getValue = function() {
+//                return this.value;
+//            };
+//
+//            Swipe.prototype.setValue = function(val) {
+//                this.value = val;
+//            };
+//
+//            window.Swipe = Swipe;
+//
+//        })(window, document);
+//
+//
+//        var x = new A(12);
+//
+//        x.setValue(18);
+//
+//        console.log(x);
+
+//
+//
+//
+//        var Swipe = function(el) {
+//            this.element = el;
+//            this.disabled = false;
+//        };
+//
+//        Swipe.prototype.bind = function() {
+//
+//            var self = this;
+//
+//            this.element.addEventListener('click', function() {
+//                console.log(self.disabled);
+//            });
+//        };
+//
+//        Swipe.prototype.disable = function() {
+//            this.disabled = true;
+//        };
+//
+//        Swipe.prototype.enable = function() {
+//            this.disabled = false;
+//        };
+//
+//
+//        var swipe = new Swipe(element);
+//
+//        swipe.bind();
+//
+//        setTimeout(function() {
+//            swipe.disable();
+//        }, 1000);
+
+
+
+
+
+
+//        swipe.bind({
+//            start: function() {
+//                // ...
+//            },
+//            move: function() {
+//                // ...
+//            },
+//            end: function() {
+//                // ...
+//            }
+//        });
+//
+//        swipe.disable();
+//
+//        Swipe(element).bind({
+//
+//        })
 
 
 
