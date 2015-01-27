@@ -12,11 +12,16 @@
             height: 200px;
             background: #000;
         }
+        #test {
+            height: 200px;
+            background: #F00;
+        }
     </style>
 </head>
 <body>
 
     <div id="swipe"></div>
+    <div id="test"></div>
 
     <script>
 
@@ -32,6 +37,20 @@
             },
             end: function() {
                 console.log('end');
+            }
+        });
+
+        var test = new Swipe('#test');
+
+        test.bind({
+            start: function() {
+                console.log('start1');
+            },
+            move: function() {
+                console.log('move1');
+            },
+            end: function() {
+                console.log('end1');
             }
         });
 
