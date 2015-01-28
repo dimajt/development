@@ -2,61 +2,156 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>swipe</title>
     <script src="swipe.js"></script>
     <style>
+        html {
+            /*-ms-touch-action: pan-x;*/
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+        }
         body {
             margin: 0;
+            font-family: sans-serif;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -ms-touch-action: pan-y;
+
         }
-        #swipe {
-            height: 200px;
+        #content {
+            padding: 15px 15px 0 15px;
+        }
+        #content p {
+            margin: 0;
+            padding: 0 0 15px 0;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        #menu {
+            position: absolute;
+            top: 0; left: 0;
+            width: 250px;
+            height: 100%;
+            background: #222;
+            -webkit-transform: translateX(-250px);
+            -moz-transform: translateX(-250px);
+            transform: translateX(-250px);
+            -webkit-transition: -webkit-transform 0.2s ease;
+            -moz-transition: -moz-transform 0.2s ease;
+            transition: transform 0.2s ease;
+            -webkit-backface-visibility: hidden;
+            z-index: 1;
+        }
+        #menu.open {
+            -webkit-transform: translateX(0px);
+            -moz-transform: translateX(0px);
+            transform: translateX(0px);
+        }
+        #menu.drag {
+            -webkit-transition: none;
+            -moz-transition: none;
+            transition: none;
+        }
+        #menu a {
+            display: block;
+            color: #FFF;
+            padding: 10px;
+            text-transform: uppercase;
+        }
+        #help {
+            position: absolute;
+            top: 0; right: 0;
             background: #000;
-        }
-        #test {
-            height: 200px;
-            background: #F00;
+            padding: 20px;
+            color: #FFF;
         }
     </style>
 </head>
 <body>
 
-    <div id="swipe"></div>
-    <div id="test"></div>
+    <!--<div id="help">-->
+
+    <!--</div>-->
+
+    <div id="menu">
+        <a>One</a>
+        <a>Two</a>
+        <a>Three</a>
+        <a>Fore</a>
+        <a>Five</a>
+    </div>
+
+    <div id="content">
+        <p>Apple's China sales are up 70% - and about to grow further, John Sudworth reports</p>
+        <p>US technology giant Apple has reported the biggest quarterly profit ever made by a public company.</p>
+        <p>Apple reported a net profit of $18bn (£11.8bn) in its fiscal first quarter, which tops the $15.9bn made by ExxonMobil in the second quarter of 2012, according to Standard and Poor's.</p>
+        <p>Record sales of iPhones were behind the surge in profits.</p>
+        <p>Apple sold 74.5 million iPhones in the three months to 27 December - well ahead of most analysts' expectations.</p>
+        <p>Apple's China sales are up 70% - and about to grow further, John Sudworth reports</p>
+        <p>US technology giant Apple has reported the biggest quarterly profit ever made by a public company.</p>
+        <p>Apple reported a net profit of $18bn (£11.8bn) in its fiscal first quarter, which tops the $15.9bn made by ExxonMobil in the second quarter of 2012, according to Standard and Poor's.</p>
+        <p>Record sales of iPhones were behind the surge in profits.</p>
+        <p>Apple sold 74.5 million iPhones in the three months to 27 December - well ahead of most analysts' expectations.</p>
+        <p>Apple's China sales are up 70% - and about to grow further, John Sudworth reports</p>
+        <p>US technology giant Apple has reported the biggest quarterly profit ever made by a public company.</p>
+        <p>Apple reported a net profit of $18bn (£11.8bn) in its fiscal first quarter, which tops the $15.9bn made by ExxonMobil in the second quarter of 2012, according to Standard and Poor's.</p>
+        <p>Record sales of iPhones were behind the surge in profits.</p>
+        <p>Apple sold 74.5 million iPhones in the three months to 27 December - well ahead of most analysts' expectations.</p>
+        <p>Apple's China sales are up 70% - and about to grow further, John Sudworth reports</p>
+        <p>US technology giant Apple has reported the biggest quarterly profit ever made by a public company.</p>
+        <p>Apple reported a net profit of $18bn (£11.8bn) in its fiscal first quarter, which tops the $15.9bn made by ExxonMobil in the second quarter of 2012, according to Standard and Poor's.</p>
+        <p>Record sales of iPhones were behind the surge in profits.</p>
+        <p>Apple sold 74.5 million iPhones in the three months to 27 December - well ahead of most analysts' expectations.</p>
+    </div>
+
+
 
     <script>
 
 
-        var swipe = new Swipe('#swipe');
+
+
+
+
+        var menu = document.getElementById('menu');
+        var help = document.getElementById('help');
+        var swipe = new Swipe(document);
 
         swipe.bind({
-            start: function() {
-                console.log('start');
-            },
-            move: function() {
-                console.log('move');
-            },
-            end: function() {
-                console.log('end');
-            }
+            start: swipeStart,
+            move: swipeMove,
+            end: swipeEnd
         });
 
-        var test = new Swipe('#test');
+        var start = 0;
+        var current;
+        var open = false;
+        var value;
 
-        test.bind({
-            start: function() {
-                console.log('start1');
-            },
-            move: function() {
-                console.log('move1');
-            },
-            end: function() {
-                console.log('end1');
-            }
-        });
+        function swipeStart(pos) {
+            start = pos.x;
+            current = open ? 0 : -250;
+            menu.classList.add('drag');
+        }
 
+        function swipeMove(pos) {
+            value = current + pos.x - start;
+            if (value < -250) value = -250;
+            if (value > 0) value = 0;
+            menu.style.webkitTransform = 'translateX(' + value + 'px)';
+            menu.style.mozTransform = 'translateX(' + value + 'px)';
+            menu.style.transform = 'translateX(' + value + 'px)';
+        }
 
-
-
+        function swipeEnd() {
+            open = value > -125;
+            menu.className = open ? 'open' : '';
+            menu.removeAttribute('style');
+        }
 
 
 

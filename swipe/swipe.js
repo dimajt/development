@@ -25,8 +25,7 @@
         mouse: {
             start: 'mousedown',
             move: 'mousemove',
-            end: 'mouseup',
-            out: 'mouseout'
+            end: 'mouseup'
         }
     };
 
@@ -35,40 +34,48 @@
 
     function getDevice() {
         if ('ontouchstart' in window) return 'touch';
-        if (window.navigator.msPointerEnabled) return 'msPinter';
+        if (window.navigator.msPointerEnabled) return 'msPointer';
         return 'mouse';
     }
 
-    function getCoordinates(e) {
-        var event = e; // temporary
-        return {
-            x: event.clientX,
-            y: event.clientY
-        };
-    }
-
-    function setHandlers(options) {
-        return {
-            start: options.start || function() {},
-            move: options.move || function() {},
-            end: options.end || function() {}
-        }
-    }
-
-    function Swipe(element) {
-        this.element = typeof element === 'string' ? document.querySelector(element) : element;
-        this.handlers = {};
+    function Swipe(el) {
+        this.el = typeof el === 'string' ? document.querySelector(el) : el;
     }
 
     Swipe.prototype.bind = function(options) {
-        this.handlers = setHandlers(options);
-        this.element.addEventListener(events.start, this, false);
+        this.setHandlers(options);
+        this.el.addEventListener(events.start, this, false);
         document.addEventListener(events.move, this, false);
         document.addEventListener(events.end, this, false);
     };
 
+    Swipe.prototype.disable = function() {
+        this.disabled = true;
+    };
+
+    Swipe.prototype.enable = function() {
+        this.disabled = false;
+    };
+
+    Swipe.prototype.setHandlers = function(options) {
+        this.handlers = {
+            start: options.start || function() {},
+            move: options.move || function() {},
+            end: options.end || function() {}
+        }
+    };
+
+    Swipe.prototype.getCoordinates = function(event) {
+        var e = device === 'touch' ? event.targetTouches[0] || event.changedTouches[0] : event;
+        return {
+            x: e.clientX,
+            y: e.clientY
+        };
+    };
+
     Swipe.prototype.start = function(event) {
-        this.startPosition = getCoordinates(event);
+        if (this.disabled) return;
+        this.startPosition = this.getCoordinates(event);
         this.drag = true;
     };
 
@@ -76,31 +83,32 @@
 
         if (!this.drag) return;
 
-        var position = getCoordinates(event);
+        var position = this.getCoordinates(event);
+
+        if (this.swipe) {
+            event.preventDefault();
+            this.handlers.move(position, event);
+            return;
+        }
+
         var passX = Math.abs(position.x - this.startPosition.x);
         var passY = Math.abs(position.y - this.startPosition.y);
 
-        if (!this.swipe) {
-            if (passX < radius && passY < radius) {
-                return;
-            }
-            if (passX > passY) {
-                this.swipe = true;
-                this.handlers.start(position);
-            }
-            else {
-                this.end();
-            }
+        if (passX < radius && passY < radius) {
+            return;
         }
-        else {
-            this.handlers.move(position);
+        if (passX > passY) {
+            this.swipe = true;
+            this.handlers.start(position, event);
+            event.preventDefault();
+            return;
         }
+
+        this.end();
     };
 
     Swipe.prototype.end = function() {
-
         this.drag = false;
-
         if (this.swipe) {
             this.handlers.end();
             this.swipe = false;
@@ -108,30 +116,32 @@
     };
 
 
-
-
     Swipe.prototype.handleEvent = function(e) {
-
-        // slow?
 
         switch(e.type) {
 
-            case pointerEvents.touch.start:
-            case pointerEvents.msPointer.start:
-            case pointerEvents.mouse.start:
+            case 'touchstart':
+            case 'pointerdown':
+            case 'MSPointerDown':
+            case 'mousedown':
                 this.start(e);
                 break;
 
-            case pointerEvents.touch.move:
-            case pointerEvents.msPointer.move:
-            case pointerEvents.mouse.move:
+            case 'touchmove':
+            case 'pointermove':
+            case 'MSPointerMove':
+            case 'mousemove':
                 this.move(e);
                 break;
 
-            case pointerEvents.touch.end:
-            case pointerEvents.touch.cancel:
-            case pointerEvents.msPointer.end:
-            case pointerEvents.mouse.end:
+            case 'touchend':
+            case 'pointerup':
+            case 'MSPointerUp':
+            case 'mouseup':
+            case 'touchcancel':
+            case 'pointercancel':
+            case 'MSPointerCancel':
+            case 'mousecancel':
                 this.end(e);
                 break;
         }
