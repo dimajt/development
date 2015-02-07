@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+
+    <script>
+
+
+        (function(window, document) {
+
+            var One = function() {
+                return new One.fn.init();
+            };
+
+            One.fn = One.prototype = {
+
+                constructor: One,
+
+                on: function() {
+                    console.log('on');
+                }
+
+            };
+
+            One.fn.init = function() {
+
+            };
+
+            One.fn.init.prototype = One.fn;
+
+            window.One = One;
+
+        })(window, document);
+
+
+
+        (function(window, document) {
+
+            var Two = function() {
+                return new Two.init();
+            };
+
+            Two.init = function() {
+
+            };
+
+            Two.init.prototype = {
+                on: function() {
+                    console.log('on');
+                }
+            };
+
+            window.Two = Two;
+
+        })(window, document);
+
+
+        var one = One();
+        var two = Two();
+
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>cross.js</title>
+
+    <!--<script src="1.4.js"></script>-->
+    <!--<script src="jquery.js"></script>-->
+    <!--<script src="x.js"></script>-->
+    <script>
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+    <style>
+        #test {
+            height: 200px;
+            width: 200px;
+            background: #000;
+        }
+    </style>
+
+    <div id="test"></div>
+
+    <script>
+
+
+
+        (function(window, document) {
+
+            var cross = function(selector) {
+                return new cross.init(selector);
+            };
+
+            cross.device = (function() {
+                if ('touchstart' in window) return 'touch';
+                if (window.navigator.msPointerEnabled) return 'pointer';
+                return 'mouse';
+            })();
+
+            cross.events = (function() {
+                var names = {
+                    touch: ['touchstart', 'touchmove', 'touchend', 'touchcancel'],
+                    pointer: ['msPointerDown', 'msPointerMove', 'msPointerUp', 'msPointerCancel'],
+                    mouse: ['mousedown', 'mousemove', 'mouseup', 'mousecancel']
+                };
+                return {
+                    start: names[cross.device][0],
+                    move: names[cross.device][1],
+                    end: names[cross.device][2],
+                    cancel: names[cross.device][3]
+                }
+            })();
+
+            cross.init = function(selector) {
+                this.element = document.querySelector(selector);
+            };
+
+            cross.init.prototype = {
+
+                tap: function(callback) {
+                    console.log('tap');
+                },
+
+                tapStart: function(handler) {
+                    this.element.addEventListener(cross.events.start, handler, false);
+                },
+
+                tapMove: function(handler) {
+                    this.element.addEventListener(cross.events.move, handler, false);
+                },
+
+                tapEnd: function(handler) {
+                    this.element.addEventListener(cross.events.end, handler, false);
+                }
+
+            };
+
+            window.cross = cross;
+
+        })(window, document);
+
+
+
+        cross('#test').tapStart(function(e) {
+            console.log(e);
+        });
+
+
+
+
+        (function (window) {
+
+            var jQuery = function() {
+                //return new jQuery.fn.init;
+            };
+
+            jQuery.fn = jQuery.prototype = {
+
+                constructor: jQuery,
+
+                on: function() {
+                    console.log('on');
+                }
+            };
+
+            jQuery.fn.init = function() {
+
+            };
+
+            jQuery.fn.init.prototype = jQuery.fn;
+
+            window.jQuery = jQuery;
+
+
+        })(window);
+
+
+
+        //console.log(new jQuery());
+
+
+
+        function A() {
+            return new A.init();
+        }
+
+        function B() {
+
+        }
+
+        B.prototype = A.prototype = {
+
+            constructor: A
+
+        };
+
+        var res = A();
+
+
+
+
+        console.log(res instanceof A);
+
+
+
+
+    </script>
+
+</body>
+</html>

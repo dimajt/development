@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>swipe.js - demo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="swipe.js"></script>
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <div id="tools">
+        <div id="toolbar">
+            <a class="icon-menu" id="toggle"></a>
+            <p>Demo</p>
+            <a class="icon-github" href="https://github.com/dimajt/swipe.js" target="_blank"></a>
+        </div>
+        <div id="menu">
+            <div id="menu-shadow"></div>
+            <div id="menu-element">
+                <h1>Swipe.js</h1>
+                <a class="current">Menu Item 1</a>
+                <a>Menu Item 2</a>
+                <a>Menu Item 3</a>
+                <a>Menu Item 4</a>
+                <a>Menu Item 5</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="page">
+        <div id="slider">
+            <div id="slider-container">
+                <div class="slide">
+                    <h3>Slide 1</h3>
+                </div>
+                <div class="slide">
+                    <h3>Slide 2</h3>
+                </div>
+                <div class="slide">
+                    <h3>Slide 3</h3>
+                </div>
+                <div class="slide">
+                    <h3>Slide 4</h3>
+                </div>
+                <div class="slide">
+                    <h3>Slide 5</h3>
+                </div>
+            </div>
+        </div>
+        <div id="content">
+            <h2>Swipe.js</h2>
+            <p>JavaScript plugin for creating and analyzing swipe events. Compatible with desktop and mobile browsers, support touch and mouse events.</p>
+
+            <h2>Usage</h2>
+            <p>var swipe = new Swipe(element);</p>
+            <p>swipe.bind({</p>
+            <p>&emsp;start: function() { ... }</p>
+            <p>&emsp;move: function() { ... }</p>
+            <p>&emsp;end: function() { ... }</p>
+            <p>});</p>
+
+            <h2>Browser support</h2>
+            <ul>
+                <li>Chrome</li>
+                <li>Firefox</li>
+                <li>Safari</li>
+                <li>IE 9+</li>
+                <li>Opera 7+</li>
+            </ul>
+
+            <h2>Mobile support</h2>
+            <ul>
+                <li>Android 2+</li>
+                <li>iOS 6+</li>
+                <li>Windows Phone 8+</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
